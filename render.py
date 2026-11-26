@@ -19,7 +19,7 @@ scene.frame_end = 24 * 32
 scene.render.image_settings.file_format = 'FFMPEG'
 scene.render.ffmpeg.format = 'MPEG4'
 scene.render.ffmpeg.codec = 'H264'
-scene.render.filepath = os.path.join(OUT, "bablu_shoe_thief.mp4")
+scene.render.filepath = os.path.join(OUT, "bablu_pappu_well.mp4")
 scene.world.color = (0.025, 0.035, 0.06)
 scene.view_settings.view_transform = 'Standard'
 
@@ -165,6 +165,6 @@ for f,loc in [(1,(0,-19,8)),(300,(0,-17,7)),(540,(0,-15,6.5)),(768,(0,-16,7))]:
 
 scene.frame_set(1)
 scene.render.image_settings.color_mode='RGB'
-scene.render.filepath=os.path.join(OUT,"bablu_shoe_thief.mp4")
+scene.render.filepath=os.path.join(OUT,"bablu_pappu_well.mp4")
 bpy.ops.render.render(animation=True)
 print("Rendered:",scene.render.filepath)
