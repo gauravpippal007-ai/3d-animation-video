@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'render.py'
+      - 'voice.py'
+      - 'voice_script.json'
       - '.github/workflows/render.yml'
 jobs:
   render:
@@ -11,18 +13,27 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
-      - name: Install Blender
+      - name: Install Blender and audio tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y blender libegl1 libgl1 libxrender1 libxi6
-      - name: Render MP4
+          sudo apt-get install -y blender ffmpeg libegl1 libgl1 libxrender1 libxi6
+          python -m pip install --upgrade pip requests
+      - name: Render 3D animation
         run: |
           mkdir -p output
           blender -b --python render.py
+      - name: Generate natural Hindi character voices and merge
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          BABLU_VOICE_ID: ${{ secrets.BABLU_VOICE_ID }}
+          PAPPU_VOICE_ID: ${{ secrets.PAPPU_VOICE_ID }}
+          SARPANCH_VOICE_ID: ${{ secrets.SARPANCH_VOICE_ID }}
+          NARRATOR_VOICE_ID: ${{ secrets.NARRATOR_VOICE_ID }}
+        run: python voice.py
       - name: Upload MP4
         uses: actions/upload-artifact@v4
         with:
-          name: bablu-pappu-mp4
-          path: output/bablu_pappu_well.mp4
+          name: bablu-pappu-mp4-with-voice
+          path: output/bablu_pappu_with_voice.mp4
           if-no-files-found: error
           retention-days: 7
