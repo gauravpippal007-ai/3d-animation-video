@@ -16,7 +16,7 @@ scene.render.resolution_percentage = 100
 scene.render.fps = 24
 scene.frame_start = 1
 scene.frame_end = 24 * 32
-scene.render.image_settings.file_format = 'FFMPEG'
+scene.render.image_settings.media_type = 'VIDEO'\nscene.render.image_settings.file_format = 'FFMPEG'
 scene.render.ffmpeg.format = 'MPEG4'
 scene.render.ffmpeg.codec = 'H264'
 scene.render.filepath = os.path.join(OUT, "bablu_pappu_well.mp4")
