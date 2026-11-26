@@ -1,26 +1,31 @@
 # 3D Hindi Comedy-Suspense Animation
 
-This project creates a short 3D animated Hindi comedy-suspense video using Blender.
+This project renders a 3D village comedy short with Blender and adds natural Hindi character voices using the ElevenLabs Text-to-Speech API.
 
-## What it creates
-- A stylized night-time village scene with a haunted well
-- Two cartoon-style friends, Bablu and Pappu
-- Camera moves, lighting, subtitles and a suspense-comedy ending
-- MP4 output at `output/bablu_pappu_well.mp4`
+## GitHub Actions setup (one time)
 
-## Render on GitHub
+In the repository, open **Settings → Secrets and variables → Actions → New repository secret** and add:
+
+- `ELEVENLABS_API_KEY`: your ElevenLabs API key
+- `BABLU_VOICE_ID`: voice ID selected for Bablu
+- `PAPPU_VOICE_ID`: voice ID selected for Pappu
+- `SARPANCH_VOICE_ID`: voice ID selected for Sarpanch
+- `NARRATOR_VOICE_ID`: voice ID selected for the narrator
+
+Keep these values private. Never paste API keys into source files, issues, or chat messages.
+
+## Render
+
 1. Open the **Actions** tab.
 2. Select **Render 3D Animation**.
 3. Tap **Run workflow** → **Run workflow**.
 4. Wait for the workflow to finish.
-5. Open the completed run and download the artifact named **bablu-pappu-mp4**.
+5. Download the artifact named **bablu-pappu-mp4-with-voice**.
 
-The first render may take several minutes. GitHub stores the rendered MP4 as a downloadable workflow artifact; it does not automatically publish it to YouTube.
+The voice lines and their approximate start times are in `voice_script.json`. Edit that file to change dialogue. The voice generator uses the `eleven_multilingual_v2` model and requires a valid ElevenLabs API key and four voice IDs.
 
-## Render on a computer with Blender
-Run:
-```bash
-blender -b --python render.py
-```
+## Important
 
-The render is silent. Add voice-over and sound effects in a video editor before publishing.
+- This workflow currently adds voice to the existing 32-second render. It does not yet create brand-new AI stories, generate new 3D scenes automatically, or publish to YouTube.
+- The existing Blender scene is 854×480 landscape, not yet 9:16 Shorts format.
+- GitHub Actions stores the MP4 as a downloadable artifact; it does not automatically upload it to YouTube.
